@@ -2,6 +2,13 @@ var express = require('express');
 var path = require('path');
 var http = require('http');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+//mongoose
+
+mongoose.connect('mongodb://localhost/planter');
+
+//express config
 
 const app = express();
 
@@ -10,6 +17,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
+//routes
+
 const appRoutes = require('./routes/app')
 
 app.use('/', appRoutes);
@@ -17,6 +26,8 @@ app.use('/', appRoutes);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
+
+//server
 
 const port = process.env.PORT || '3000';
 

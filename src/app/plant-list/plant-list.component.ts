@@ -17,7 +17,6 @@ export class PlantListComponent implements OnInit {
     this.plantService.getPlants()
       .subscribe(
         (plants: any) => {
-          console.log(plants)
           this.plants = plants
         },
         (error: Error) => {

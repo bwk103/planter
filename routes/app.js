@@ -42,4 +42,59 @@ router.post('/plants', (req, res, next) => {
   })
 });
 
+router.get('/plants/:id', (req, res) => {
+  var id = req.params.id;
+  Plant.findById(id, (error, plant) => {
+    if (error) {
+      return res.status(501).json({
+        title: 'An error occured',
+        error: error
+      });
+    } else {
+      res.status(200).json({
+        message: 'Plant successfully found',
+        object: plant
+      });
+    }
+  })
+})
+
+router.put('/plants/:id', (req, res) => {
+  var id = req.params.id;
+  var updatedPlant = new Plant({
+    _id: id,
+    name: req.body.name,
+    image: req.body.image
+  });
+  Plant.findByIdAndUpdate(id, {$set: updatedPlant}, (error, plant) => {
+    if (error) {
+      return res.status(501).json({
+        title: 'An error occured',
+        error: error
+      });
+    } else {
+      res.status(200).json({
+        message: 'Plant successfully changed',
+        object: plant
+      });
+    }
+  })
+});
+
+router.delete('/plants/:id', (req, res) => {
+  var id = req.params.id;
+  Plant.findByIdAndRemove(id, (error, plant) => {
+    if (error) {
+      return res.status(501).json({
+        title: 'An error occured',
+        error: error
+      })
+    }
+    res.status(200).json({
+      message: 'Plant successfully deleted',
+      object: plant
+    });
+  });
+})
+
 module.exports = router;

@@ -9,6 +9,7 @@ import { PlantListComponent } from './plant-list/plant-list.component';
 import { routing } from './app-routes';
 import { PlantNewComponent } from './plant-new/plant-new.component';
 import { HeaderComponent } from './header/header.component';
+import { SplashComponent } from './splash/splash.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HeaderComponent } from './header/header.component';
     PlantComponent,
     PlantListComponent,
     PlantNewComponent,
-    HeaderComponent
+    HeaderComponent,
+    SplashComponent
   ],
   imports: [
     BrowserModule,

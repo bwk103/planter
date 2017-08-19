@@ -25,7 +25,11 @@ router.get('/plants', (req, res, next) => {
 router.post('/plants', (req, res, next) => {
   var newPlant = new Plant({
     name: req.body.name,
-    image: req.body.image
+    image: req.body.image,
+    type: req.body.type,
+    height: req.body.height,
+    width: req.body.width,
+    colour: req.body.colour
   });
   Plant.create(newPlant, (error, plant) => {
     if (error) {

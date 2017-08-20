@@ -4,12 +4,14 @@ import { SplashComponent } from './splash/splash.component';
 import { RouterModule } from '@angular/router';
 import { UserNewComponent } from './user-new/user-new.component';
 import { UserLoginComponent } from './user-login/user-login.component';
+import { IndivPlantComponent} from './indiv-plant/indiv-plant.component';
 
 
 const appRoutes = [
   { path: '', component: SplashComponent, pathMatch: 'full'},
   { path: 'plants', component: PlantListComponent },
   { path: 'plants/new', component: PlantNewComponent},
+  { path: 'plants/:id', component: IndivPlantComponent},
   { path: 'user/new', component: UserNewComponent},
   { path: 'user/login', component: UserLoginComponent}
 ];

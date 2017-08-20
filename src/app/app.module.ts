@@ -12,6 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import { SplashComponent } from './splash/splash.component';
 import { UserNewComponent } from './user-new/user-new.component';
 import { UserLoginComponent } from './user-login/user-login.component';
+import { IndivPlantComponent } from './indiv-plant/indiv-plant.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UserLoginComponent } from './user-login/user-login.component';
     HeaderComponent,
     SplashComponent,
     UserNewComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    IndivPlantComponent
   ],
   imports: [
     BrowserModule,

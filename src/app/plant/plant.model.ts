@@ -5,7 +5,8 @@ export class Plant {
               public type: string,
               public height: number,
               public width: number,
-              public colour: string){
+              public colour: string,
+              ){
   }
 
 }

@@ -10,8 +10,8 @@ import { routing } from './app-routes';
 import { PlantNewComponent } from './plant-new/plant-new.component';
 import { HeaderComponent } from './header/header.component';
 import { SplashComponent } from './splash/splash.component';
-import { UserNewComponent } from './user-new/user-new.component';
-import { UserLoginComponent } from './user-login/user-login.component';
+import { UserNewComponent } from './users/user-new/user-new.component';
+import { UserLoginComponent } from './users/user-login/user-login.component';
 import { IndivPlantComponent } from './indiv-plant/indiv-plant.component';
 
 @NgModule({

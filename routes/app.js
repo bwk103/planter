@@ -104,7 +104,7 @@ router.delete('/plants/:id', (req, res) => {
   });
 })
 
-router.post('/users', (req, res) => {
+router.post('/users/register', (req, res) => {
   var newUser = new User({
     username: req.body.username,
     email: req.body.email,
@@ -123,6 +123,10 @@ router.post('/users', (req, res) => {
       });
     })
   })
-})
+});
+
+router.post('/users/login', passport.authenticate('local'), (req, res) => {
+  console.log(req.user);
+});
 
 module.exports = router;

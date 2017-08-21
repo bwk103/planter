@@ -29,6 +29,11 @@ body {
 }
 
 hr {
-  border-width: thick;
-  width: 50%
+  border: 3px solid white;
+  width: 50%;
+}
+
+.btn-light {
+  margin-top: 15px;
+  margin-left: 15px;
 }

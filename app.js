@@ -1,16 +1,32 @@
 var express = require('express');
+const app = express();
 var path = require('path');
 var http = require('http');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local');
+var User = require('./models/user');
 
 //mongoose
 
 mongoose.connect('mongodb://localhost/planter');
 
-//express config
+//Passport Setup
 
-const app = express();
+app.use(require('express-session')({
+  secret: "Mia is a cat",
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//express config
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

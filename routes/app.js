@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var Plant = require('../models/plant');
+var User = require('../models/user');
+var passport = require('passport');
+
 
 router.get('/', (req, res) => {
   res.send('This will be the home page');
@@ -99,6 +102,27 @@ router.delete('/plants/:id', (req, res) => {
       object: plant
     });
   });
+})
+
+router.post('/users', (req, res) => {
+  var newUser = new User({
+    username: req.body.username,
+    email: req.body.email,
+  });
+  User.register(newUser, req.body.password, (error, user) => {
+    if (error) {
+      return res.status(501).json({
+        title: 'An error occured',
+        error: error
+      });
+    }
+    passport.authenticate('local')(req, res, ()=> {
+      res.status(200).json({
+        message: "Success, Welcome to Planter",
+        object: user
+      });
+    })
+  })
 })
 
 module.exports = router;

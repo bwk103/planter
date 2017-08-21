@@ -36,7 +36,7 @@ export class PlantNewComponent implements OnInit {
     this.plantService.addPlant(newPlant)
       .subscribe(
         (plant: Plant) => {
-          console.log(plant)
+          this.myForm.reset();
         },
         (error) => {
           console.log(error)

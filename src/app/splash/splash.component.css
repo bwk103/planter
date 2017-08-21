@@ -29,5 +29,6 @@ body {
 }
 
 hr {
-  width: 50% 
+  border-width: thick;
+  width: 50%
 }

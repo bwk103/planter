@@ -6,3 +6,7 @@ img {
 .plant-entry h4 {
   text-align: center;
 }
+
+a {
+  cursor: pointer;
+}

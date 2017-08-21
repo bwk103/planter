@@ -19,6 +19,12 @@ export class PlantService{
       .catch((error: Response) => Observable.throw(error.json()))
     }
 
+    getPlant(plantId){
+      return this.http.get('http://localhost:3000/plants/' + plantId)
+      .map((response: Response) => response.json().object)
+      .catch((error: Response) => Observable.throw(error.json()))
+    }
+
   addPlant(plant: Plant){
     var newPlant = JSON.stringify(plant);
     var headers = new Headers({

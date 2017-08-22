@@ -3,6 +3,8 @@ var router = express.Router();
 var Plant = require('../models/plant');
 var User = require('../models/user');
 var passport = require('passport');
+var jwt = require('jsonwebtoken');
+var config = require('../config.js')
 
 
 router.get('/', (req, res) => {
@@ -125,8 +127,43 @@ router.post('/users/register', (req, res) => {
   })
 });
 
-router.post('/users/login', passport.authenticate('local'), (req, res) => {
-  console.log(req.user);
+router.post('/users/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+
+    if (err) {
+      return res.status(501).json({
+        title: 'An error occured',
+        error: err
+      });
+    }
+
+    if (!user) {
+      return res.status(401).json({
+        title: 'An error occured',
+        error:  'User not found'
+      });
+    }
+
+    var token = jwt.sign({ user_id: user._id}, config.secret, {expiresIn: '1h'});
+
+    res.status(200).json({
+      title: 'Welcome back ' + user.username,
+      user: user,
+      token: token
+    })
+  })(req, res, next);
 });
+
+// router.post('/users/login', (req, res, next) => {
+//   passport.authenticate('local', (err, user, info) {
+//     if (err) { return next(err) }
+//     if (!user) {
+//       return res.json(401, {error: 'message'});
+//     }
+//     var token = jwt.encode({username: user.name}, config.secret);
+//     res.json({token: token});
+//   })(req, res, next);
+// });
+
 
 module.exports = router;

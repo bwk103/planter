@@ -7,10 +7,16 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var User = require('./models/user');
+var jwt = require('jsonwebtoken');
+var config = require('./config')
 
 //mongoose
 
 mongoose.connect('mongodb://localhost/planter');
+
+//set jsonwebtoken
+
+app.set(config.secret);
 
 //Passport Setup
 
@@ -21,10 +27,8 @@ app.use(require('express-session')({
 }));
 
 app.use(passport.initialize());
-app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+
 
 //express config
 

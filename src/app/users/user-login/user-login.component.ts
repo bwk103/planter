@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-user-login',
@@ -7,9 +9,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserLoginComponent implements OnInit {
 
-  constructor() { }
+  loginForm: FormGroup;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.loginForm = new FormGroup({
+      username: new FormControl(null),
+      password: new FormControl(null)
+    })
+  }
+
+  onSubmit(){
+    var user = this.loginForm.value;
+    this.userService.loginUser(user)
+    .subscribe(
+      (response: any ) => {
+        this.loginForm.reset();
+        localStorage.setItem('token', response.token);
+        console.log(response);
+      },
+      (error) => {
+        console.log(error)
+      }
+    )
   }
 
 }

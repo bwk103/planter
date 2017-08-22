@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -11,13 +12,16 @@ export class UserLoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private router: Router) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      username: new FormControl(null),
-      password: new FormControl(null)
-    })
+      username: new FormControl(null, [Validators.required,
+                                      Validators.minLength(3)]),
+      password: new FormControl(null, [Validators.required,
+                                      Validators.minLength(3)])
+    });
   }
 
   onSubmit(){
@@ -25,9 +29,10 @@ export class UserLoginComponent implements OnInit {
     this.userService.loginUser(user)
     .subscribe(
       (response: any ) => {
-        this.loginForm.reset();
+        this.router.navigate(['/plants'])
         localStorage.setItem('token', response.token);
-        console.log(response);
+        this.userService.setToken(response.token);
+        this.userService.setName(response.user.username);
       },
       (error) => {
         console.log(error)

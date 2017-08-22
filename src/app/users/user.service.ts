@@ -5,19 +5,15 @@ import { User } from './user.model';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
-
-
-
 @Injectable()
 
 export class UserService {
 
   public token: string;
+  private name: string;
 
   constructor(private http: Http,
               router: Router){
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.token = currentUser && currentUser.token;
   }
 
   createUser(user: User){
@@ -37,6 +33,27 @@ export class UserService {
     return this.http.post('http://localhost:3000/users/login', user, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
+  }
+
+  setToken(token){
+    this.token = token;
+  }
+
+  setName(name){
+    this.name = name;
+  }
+
+  isAuthenticated(){
+    return this.token != null;
+  }
+
+  logOutUser(){
+    localStorage.removeItem('token');
+    this.token = null;
+  }
+
+  userName(){
+    return this.name;
   }
 
 }

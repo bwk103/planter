@@ -154,16 +154,11 @@ router.post('/users/login', function(req, res, next) {
   })(req, res, next);
 });
 
-// router.post('/users/login', (req, res, next) => {
-//   passport.authenticate('local', (err, user, info) {
-//     if (err) { return next(err) }
-//     if (!user) {
-//       return res.json(401, {error: 'message'});
-//     }
-//     var token = jwt.encode({username: user.name}, config.secret);
-//     res.json({token: token});
-//   })(req, res, next);
-// });
+router.get('/garden', (req, res) => {
+  res.status(200).json({
+    title: "Congratulations, you've found the garden!"
+  });
+});
 
 
 module.exports = router;

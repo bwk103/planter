@@ -10,7 +10,11 @@
       <label for="email">Email address</label>
       <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email">
       <span class="help-block" *ngIf="!registerForm.controls['email'].valid && registerForm.controls['email'].touched">Please enter a valid email address</span>
-
+    </div>
+    <div class="form-group">
+      <label for="location">Location</label>
+      <input type="text" class="form-control" id="location" placeholder="Location" formControlName="location">
+      <span class="help-block" *ngIf="!registerForm.controls['location'].valid && registerForm.controls['location'].touched">Please enter your nearest city</span>
     </div>
     <div class="form-group">
       <label for="password">Password</label>

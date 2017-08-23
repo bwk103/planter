@@ -13,8 +13,4 @@ export class SplashComponent implements OnInit {
   ngOnInit() {
   }
 
-  onGrow(){
-    this.router.navigate(['/plants'])
-  }
-
 }

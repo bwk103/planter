@@ -1,0 +1,7 @@
+.weather-box {
+  border: 1px solid black;
+}
+
+.day {
+  border-right: 1px solid black;
+}

@@ -106,10 +106,13 @@ router.delete('/plants/:id', (req, res) => {
   });
 })
 
-router.post('/users/register', (req, res) => {
+router.post('/user/register', (req, res) => {
+  console.log(req.body);
   var newUser = new User({
     username: req.body.username,
     email: req.body.email,
+    location: req.body.location,
+    garden: req.body.garden
   });
   User.register(newUser, req.body.password, (error, user) => {
     if (error) {
@@ -127,7 +130,7 @@ router.post('/users/register', (req, res) => {
   })
 });
 
-router.post('/users/login', function(req, res, next) {
+router.post('/user/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
 
     if (err) {
@@ -154,7 +157,23 @@ router.post('/users/login', function(req, res, next) {
   })(req, res, next);
 });
 
-router.get('/garden', (req, res) => {
+router.get('/user/:id', (req, res) => {
+  var id = req.params.id;
+  User.findById(id, (err, user) => {
+    if (err) {
+      return res.status(401).json({
+        title: 'An error occured',
+        error: 'No user found'
+      })
+    }
+    res.status(200).json({
+      title: 'User retrieved',
+      object: user
+    });
+  });
+})
+
+router.get('/user/:id/garden', (req, res) => {
   res.status(200).json({
     title: "Congratulations, you've found the garden!"
   });

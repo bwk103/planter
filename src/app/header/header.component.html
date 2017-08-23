@@ -13,25 +13,23 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/plants/new">Add Plant</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/user/:id/garden">Garden</a>
+        </li>
       </ul>
       <ul class="navbar-nav ml-auto user-navs">
 
         <li *ngIf="!loggedIn()" class="nav-item">
-          <a class="nav-link" routerLink="/users/register">
+          <a class="nav-link" routerLink="/user/register">
             <i class="fa fa-user-plus" aria-hidden="true"></i>
             Sign Up
           </a>
         </li>
         <li  *ngIf="!loggedIn()" class="nav-item">
-          <a class="nav-link" routerLink="/users/login">
+          <a class="nav-link" routerLink="/user/login">
             <i class="fa fa-user" aria-hidden="true"></i>
             Sign In
           </a>
-        </li>
-        <li *ngIf="loggedIn()">
-          <span class="navbar-text">
-            Welcome Back, {{getName()}}
-          </span>
         </li>
         <li  *ngIf="loggedIn()" class="nav-item">
           <a class="nav-link" id="logout" (click)="onSignOut()">

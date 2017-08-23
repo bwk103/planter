@@ -22,6 +22,7 @@ export class UserNewComponent implements OnInit {
       email: new FormControl(null, [Validators.required,
                                     Validators.email
                                     ]),
+      location: new FormControl(null, Validators.required),
       password: new FormControl(null, [Validators.required,
                                       Validators.minLength(3)
                                       ])
@@ -31,7 +32,10 @@ export class UserNewComponent implements OnInit {
   onSubmit(){
     var newUser = new User(this.registerForm.value.username,
                             this.registerForm.value.email,
-                            this.registerForm.value.password)
+                            this.registerForm.value.password,
+                            this.registerForm.value.location,
+                            []);
+                            console.log(newUser)
     this.userService.createUser(newUser)
     .subscribe(
       (user: User) => {

@@ -24,5 +24,4 @@ export class PlantListComponent implements OnInit {
         }
       )
   }
-
 }

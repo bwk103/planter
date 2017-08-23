@@ -1,14 +1,25 @@
 <body>
   <div class="container">
-    <div class="row">
-      <div class="col-md-8">
-          <app-plant class="plant"
-            *ngFor="let plant of plants"
-            [plant]="plant">
-          </app-plant>
-      </div>
-      <div class="col-md-4" id="sidebar">
+    <div class="jumbotron">
+      <h1 class="display-3">Planter</h1>
+      <hr class="my-4">
+      <p class="lead">Here is just a selection of flowers in our database. To personalise your experience and to receive maintenance updates, please go to your garden.</p>
+      <p class="lead">
+        <a class="btn btn-success btn-lg" routerLink="/user/login" role="button">To the Garden!</a>
+      </p>
+    </div>
+    <div class="col-md-12 plant-list">
+      <div class="row plant-row">
+        <div class="card plant" *ngFor="let plant of plants" style="width: 20rem;">
+          <img class="card-img-top rounded-circle" src="{{plant.image}}">
+          <div class="card-body">
+            <h5 class="card-title">{{plant.name}}</h5>
+            <p class="card-text">This will be some text to describe the plant.</p>
+            <a id="info-button" class="btn btn-info" routerLink="/plants/{{plant._id}}">More Info</a>
+            <a id="garden-button" class="btn btn-success">Add to Garden</a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+    </div>
 </body>

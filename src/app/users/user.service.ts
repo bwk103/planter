@@ -4,6 +4,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { User } from './user.model';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
+import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 
@@ -13,7 +14,7 @@ export class UserService {
   private name: string;
 
   constructor(private http: Http,
-              router: Router){
+              private router: Router){
   }
 
   createUser(user: User){
@@ -21,7 +22,7 @@ export class UserService {
     var headers = new Headers({
       'Content-Type': 'application/json'
     });
-    return this.http.post('http://localhost:3000/users/register', user, {headers: headers})
+    return this.http.post('http://localhost:3000/user/register', user, {headers: headers})
       .map((response: Response) => response.json().object)
       .catch((error: Response) => Observable.throw(error.json()));
     }
@@ -30,7 +31,7 @@ export class UserService {
     var headers = new Headers({
       'Content-Type': 'application/json'
     });
-    return this.http.post('http://localhost:3000/users/login', user, {headers: headers})
+    return this.http.post('http://localhost:3000/user/login', user, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -44,16 +45,24 @@ export class UserService {
   }
 
   isAuthenticated(){
-    return this.token != null;
+    return tokenNotExpired();
   }
 
   logOutUser(){
     localStorage.removeItem('token');
+    this.router.navigate(['/plants'])
     this.token = null;
+    this.name = null;
   }
 
   userName(){
     return this.name;
+  }
+
+  getUser(id: string){
+    return this.http.get('http://localhost:3000/user/' + id)
+      .map((response: Response) => response.json().object)
+      .catch((error: Response) => Observable.throw(error.json()))
   }
 
 }

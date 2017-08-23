@@ -13,6 +13,11 @@ import { SplashComponent } from './splash/splash.component';
 import { UserNewComponent } from './users/user-new/user-new.component';
 import { UserLoginComponent } from './users/user-login/user-login.component';
 import { IndivPlantComponent } from './indiv-plant/indiv-plant.component';
+import { GardenComponent } from './garden/garden.component';
+import { AuthGuardService } from './auth/auth-guard.service';
+import { UserService } from './users/user.service';
+import { WeatherComponent } from './weather/weather.component';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +29,9 @@ import { IndivPlantComponent } from './indiv-plant/indiv-plant.component';
     SplashComponent,
     UserNewComponent,
     UserLoginComponent,
-    IndivPlantComponent
+    IndivPlantComponent,
+    GardenComponent,
+    WeatherComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +40,7 @@ import { IndivPlantComponent } from './indiv-plant/indiv-plant.component';
     HttpModule,
     routing
   ],
-  providers: [],
+  providers: [AuthGuardService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

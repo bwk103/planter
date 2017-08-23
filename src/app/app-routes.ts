@@ -5,15 +5,18 @@ import { RouterModule } from '@angular/router';
 import { UserNewComponent } from './users/user-new/user-new.component';
 import { UserLoginComponent } from './users/user-login/user-login.component';
 import { IndivPlantComponent} from './indiv-plant/indiv-plant.component';
+import { GardenComponent } from './garden/garden.component';
+import { AuthGuardService } from './auth/auth-guard.service';
 
 
 const appRoutes = [
   { path: '', component: SplashComponent, pathMatch: 'full'},
   { path: 'plants', component: PlantListComponent },
-  { path: 'plants/new', component: PlantNewComponent},
+  { path: 'plants/new', component: PlantNewComponent, canActivate: [AuthGuardService]},
   { path: 'plants/:id', component: IndivPlantComponent},
-  { path: 'users/register', component: UserNewComponent},
-  { path: 'users/login', component: UserLoginComponent}
+  { path: 'user/register', component: UserNewComponent},
+  { path: 'user/login', component: UserLoginComponent},
+  { path: 'user/:id/garden', component: GardenComponent, canActivate: [AuthGuardService]}
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

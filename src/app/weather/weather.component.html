@@ -1,13 +1,25 @@
-<div class="row weather-box">
-  <div class="col-md-4 day">
-    <h4>Yesterday in {{location}}</h4>
-    <i class="fa fa-tint" aria-hidden="true"></i>
+<div class="card-group weather-display">
+  <div class="card">
+    <i class="fa fa-tint weather-icon" aria-hidden="true"></i>
+    <div class="card-body">
+      <h4 class="card-title">Yesterday</h4>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    </div>
   </div>
-  <div class="col-md-4 day">
-  <h4>Today in {{location}}</h4>
-  <i class="fa fa-tint" aria-hidden="true"></i>
+  <div class="card">
+    <img class="card-img-top" src="{{weather.icon}}">
+    <div class="card-body">
+      <h4 class="card-title">{{weather.date}}</h4>
+      <p class="card-text">Summary: {{weather.summary}}</p>
+      <p class="card-text">Rainfall: {{weather.rainfall}}mm</p>
+    </div>
   </div>
-  <div class="col-md-4">
-    <h4>Conclusion:</h4>
+  <div class="card">
+    <i class="fa fa-bolt weather-icon" aria-hidden="true"></i>
+    <div class="card-body">
+      <h4 class="card-title">Tomorrow</h4>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+    </div>
   </div>
+  <button (click)="getWeather()">Get Weather</button>
 </div>

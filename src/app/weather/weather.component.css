@@ -5,3 +5,13 @@
 .day {
   border-right: 1px solid black;
 }
+
+.weather-icon {
+  margin-top: 10px;
+  font-size: 150px;
+  text-align: center;
+}
+
+.weather-display {
+  text-align: center;
+}

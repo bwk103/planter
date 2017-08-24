@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../users/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,13 +9,22 @@ import { UserService } from '../users/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  userId: string;
+
+  constructor(private userService: UserService,
+              private router: Router) { }
 
   ngOnInit() {
   }
 
   onSignOut(){
     this.userService.logOutUser();
+  }
+
+  onGarden(){
+    var id = this.userService.getUserID();
+    this.userId = id;
+    this.router.navigate(['/user/' + this.userId + '/garden']);
   }
 
   loggedIn(){

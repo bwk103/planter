@@ -3,6 +3,7 @@ var router = express.Router();
 var Plant = require('../models/plant');
 var User = require('../models/user');
 var passport = require('passport');
+var passportJWT = require('passport-jwt')
 var jwt = require('jsonwebtoken');
 var config = require('../config.js')
 
@@ -107,34 +108,38 @@ router.delete('/plants/:id', (req, res) => {
 })
 
 router.post('/user/register', (req, res) => {
-  console.log(req.body);
   var newUser = new User({
     username: req.body.username,
+    password: req.body.password,
     email: req.body.email,
     location: req.body.location,
     garden: req.body.garden
   });
-  User.register(newUser, req.body.password, (error, user) => {
-    if (error) {
-      return res.status(501).json({
-        title: 'An error occured',
-        error: error
-      });
-    }
-    passport.authenticate('local')(req, res, ()=> {
-      res.status(200).json({
-        message: "Success, Welcome to Planter",
-        object: user
-      });
-    })
-  })
-});
-
-router.post('/user/login', function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
-
+  newUser.save((err, user) => {
     if (err) {
       return res.status(501).json({
+        title: 'An error occured',
+        error: err
+      });
+    }
+    res.status(200).json({
+      message: "Success. Welcome to Planter, " + user.username,
+      object: user
+    });
+  });
+});
+
+router.post('/user/login', function(req, res) {
+
+  if (req.body.username && req.body.password) {
+    var username = req.body.username;
+    var password = req.body.password;
+  }
+
+  User.findOne({'username': username}, (err, user) => {
+
+    if (err) {
+      return res.status(401).json({
         title: 'An error occured',
         error: err
       });
@@ -142,19 +147,26 @@ router.post('/user/login', function(req, res, next) {
 
     if (!user) {
       return res.status(401).json({
-        title: 'An error occured',
-        error:  'User not found'
+        title: 'No such user found',
       });
     }
 
-    var token = jwt.sign({ user_id: user._id}, config.secret, {expiresIn: '1h'});
+    user.comparePassword(password, function(err, isMatch) {
+      if (err) {
+        return res.status(401).json({
+          title: 'An error occured',
+          error: err
+        });
+      }
+      var payload = {id: user._id};
+      var token = jwt.sign(payload, config.secret, {expiresIn: '1h'});
 
-    res.status(200).json({
-      title: 'Welcome back ' + user.username,
-      user: user,
-      token: token
-    })
-  })(req, res, next);
+      res.status(200).json({
+        title: 'User logged in successfully',
+        token: token
+      });
+    });
+  });
 });
 
 router.get('/user/:id', (req, res) => {
@@ -171,11 +183,11 @@ router.get('/user/:id', (req, res) => {
       object: user
     });
   });
-})
+});
 
 router.get('/user/:id/garden', (req, res) => {
   res.status(200).json({
-    title: "Congratulations, you've found the garden!"
+    title: "You should only be able to see this page with a valid JWT"
   });
 });
 

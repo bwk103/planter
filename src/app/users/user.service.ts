@@ -4,7 +4,8 @@ import { Http, Headers, Response } from '@angular/http';
 import { User } from './user.model';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
-import { tokenNotExpired } from 'angular2-jwt';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
+
 
 @Injectable()
 
@@ -12,6 +13,7 @@ export class UserService {
 
   public token: string;
   private name: string;
+  private jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(private http: Http,
               private router: Router){
@@ -63,6 +65,15 @@ export class UserService {
     return this.http.get('http://localhost:3000/user/' + id)
       .map((response: Response) => response.json().object)
       .catch((error: Response) => Observable.throw(error.json()))
+  }
+
+  getUserID(){
+    var token = localStorage.getItem('token');
+    if (token) {
+      return this.jwtHelper.decodeToken(this.token).user_id;
+    } else {
+      return null;
+    }
   }
 
 }

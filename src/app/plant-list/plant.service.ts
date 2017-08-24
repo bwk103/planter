@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/Rx'
+import 'rxjs/Rx';
+import { UserService } from '../users/user.service';
 
 
 import { Plant } from '../plant/plant.model';
@@ -10,7 +11,8 @@ import { Plant } from '../plant/plant.model';
 
 export class PlantService{
 
-  constructor(private http: Http){
+  constructor(private http: Http,
+              private userService: UserService){
   }
 
   getPlants(){
@@ -33,6 +35,10 @@ export class PlantService{
     return this.http.post('http://localhost:3000/plants', plant, {headers: headers} )
       .map((response: Response) => response.json().object)
       .catch((error: Response) => Observable.throw(error.json()))
+  }
+
+  loggedIn(){
+    return this.userService.isAuthenticated();
   }
 
 }

@@ -29,10 +29,9 @@ export class UserLoginComponent implements OnInit {
     this.userService.loginUser(user)
     .subscribe(
       (response: any ) => {
-        this.router.navigate(['/user/' + response.user._id +'/garden' ])
+        this.router.navigate(['/plants'])
         localStorage.setItem('token', response.token);
         this.userService.setToken(response.token);
-        this.userService.setName(response.user.username);
       },
       (error) => {
         console.log(error)

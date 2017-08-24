@@ -17,6 +17,7 @@ import { GardenComponent } from './garden/garden.component';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { UserService } from './users/user.service';
 import { WeatherComponent } from './weather/weather.component';
+import { WeatherService } from './weather/weather.service';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import { WeatherComponent } from './weather/weather.component';
     HttpModule,
     routing
   ],
-  providers: [AuthGuardService, UserService],
+  providers: [AuthGuardService, UserService, WeatherService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

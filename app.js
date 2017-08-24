@@ -34,14 +34,14 @@ app.set(config.secret);
 // passport.use(new LocalStrategy(User.authenticate()));
 
 var jwtOptions = {};
-jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
 jwtOptions.secretOrKey = config.secret;
 
 var strategy = new JwtStrategy(jwtOptions, (jwt_payload, next) => {
 
   console.log('payload received', jwt_payload);
 
-  User.findById({id: jwt_payload.id}, (err, user) => {
+  User.findById({_id: jwt_payload.id}, (err, user) => {
     if (user) {
       next(null, user);
     } else {

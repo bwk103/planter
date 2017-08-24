@@ -164,12 +164,19 @@ router.post('/user/login', function(req, res) {
       } else {
         return res.status(401).json({
           title: 'Authentication error',
-          message: 'You were not logged in.'
+          message: 'You were not logged in: Please try again.'
         });
       }
     });
   });
 });
+
+router.get('/user/:id/garden', passport.authenticate('jwt', {session: false}), (req, res) => {
+  res.status(200).json({
+    title: 'Garden route',
+    message: 'This is the protected garden route'
+  });
+})
 
 router.get('/user/:id', (req, res) => {
   var id = req.params.id;
@@ -187,10 +194,8 @@ router.get('/user/:id', (req, res) => {
   });
 });
 
-router.get('/user/:id/garden', (req, res) => {
-  res.status(200).json({
-    title: "You should only be able to see this page with a valid JWT"
-  });
+router.get("/secret", passport.authenticate('jwt', { session: false }), function(req, res){
+  res.json("Success! You can not see this without a valid token");
 });
 
 

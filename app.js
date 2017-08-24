@@ -36,7 +36,6 @@ app.set(config.secret);
 var jwtOptions = {};
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = config.secret;
-console.log(jwtOptions);
 
 var strategy = new JwtStrategy(jwtOptions, (jwt_payload, next) => {
 

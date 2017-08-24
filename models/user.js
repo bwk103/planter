@@ -16,15 +16,6 @@ var userSchema = new mongoose.Schema({
   ]
 });
 
-userSchema.methods.comparePassword = function(candidatePassword, callback) {
-  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-    if (err) {
-      return callback(err);
-    };
-    callback(null, isMatch);
-  });
-};
-
 userSchema.pre('save', function(next) {
   var user = this;
 
@@ -43,5 +34,15 @@ userSchema.pre('save', function(next) {
     });
   });
 });
+
+userSchema.methods.comparePassword = function(candidatePassword, callback) {
+    var user = this;
+  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+    if (err) {
+      return callback(err);
+    };
+    callback(null, isMatch);
+  });
+};
 
 module.exports = mongoose.model("User", userSchema);

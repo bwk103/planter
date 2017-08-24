@@ -6,6 +6,7 @@ var passport = require('passport');
 var passportJWT = require('passport-jwt')
 var jwt = require('jsonwebtoken');
 var config = require('../config.js')
+var bcrypt = require('bcrypt');
 
 
 router.get('/', (req, res) => {
@@ -152,19 +153,20 @@ router.post('/user/login', function(req, res) {
     }
 
     user.comparePassword(password, function(err, isMatch) {
-      if (err) {
+      if (isMatch) {
+        var payload = {id: user._id};
+        var token = jwt.sign(payload, config.secret, {expiresIn: '1h'});
+
+        res.status(200).json({
+          title: 'User logged in successfully',
+          token: token
+        });
+      } else {
         return res.status(401).json({
-          title: 'An error occured',
-          error: err
+          title: 'Authentication error',
+          message: 'You were not logged in.'
         });
       }
-      var payload = {id: user._id};
-      var token = jwt.sign(payload, config.secret, {expiresIn: '1h'});
-
-      res.status(200).json({
-        title: 'User logged in successfully',
-        token: token
-      });
     });
   });
 });

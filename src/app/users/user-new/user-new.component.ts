@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from '../user.model';
 import { UserService } from '../user.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-new',
@@ -12,7 +14,9 @@ export class UserNewComponent implements OnInit {
 
   registerForm: FormGroup;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private _flashMessagesService: FlashMessagesService,
+              private router: Router) { }
 
   ngOnInit() {
     this.registerForm = new FormGroup({
@@ -39,10 +43,13 @@ export class UserNewComponent implements OnInit {
     this.userService.createUser(newUser)
     .subscribe(
       (user: User) => {
-        this.registerForm.reset();
+        this.router.navigate(['/plants'])
+        this._flashMessagesService.show("Yay! You're in! Welcome to Planter!", { cssClass: 'alert-success', timeout: 3000 });
         console.log('User created successfully');
       },
       (error) => {
+        this.registerForm.reset();
+        this._flashMessagesService.show("Oops, there's been a problem.  Please try again", { cssClass: 'alert-danger', timeout: 3000 });
         console.log(error)
       }
     )

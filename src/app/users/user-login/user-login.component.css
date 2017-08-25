@@ -14,3 +14,8 @@ h1 {
 .help-block {
   font-size: 0.75em
 }
+
+.alert-danger {
+  color: black;
+  background-color: purple;
+}

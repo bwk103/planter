@@ -15,3 +15,7 @@ h1 {
 .help-block {
   font-size: 0.75em
 }
+
+.flash-message {
+  text-align: center;
+}

@@ -19,6 +19,7 @@ import { UserService } from './users/user.service';
 import { WeatherComponent } from './weather/weather.component';
 import { WeatherService } from './weather/weather.service';
 import { UnauthComponent } from './unauth/unauth.component';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { UnauthComponent } from './unauth/unauth.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    routing
+    routing,
+    FlashMessagesModule
   ],
   providers: [AuthGuardService, UserService, WeatherService],
   bootstrap: [AppComponent]

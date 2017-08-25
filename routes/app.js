@@ -123,9 +123,13 @@ router.post('/user/register', (req, res) => {
         message: err
       });
     }
+    var payload = {id: user._id};
+    var token = jwt.sign(payload, config.secret, {expiresIn: '1h'});
+
     res.status(200).json({
       message: "Success. Welcome to Planter, " + user.username,
-      object: user
+      object: user,
+      token: token
     });
   });
 });
@@ -193,10 +197,5 @@ router.get('/user/:id', (req, res) => {
     });
   });
 });
-
-router.get("/secret", passport.authenticate('jwt', { session: false }), function(req, res){
-  res.json("Success! You can not see this without a valid token");
-});
-
 
 module.exports = router;

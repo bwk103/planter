@@ -25,7 +25,7 @@ export class UserService {
       'Content-Type': 'application/json'
     });
     return this.http.post('http://localhost:3000/user/register', user, {headers: headers})
-      .map((response: Response) => response.json().object)
+      .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
     }
 

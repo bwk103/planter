@@ -42,8 +42,9 @@ export class UserNewComponent implements OnInit {
                             console.log(newUser)
     this.userService.createUser(newUser)
     .subscribe(
-      (user: User) => {
+      (response: any) => {
         this.router.navigate(['/plants'])
+        localStorage.setItem('token', response.token);
         this._flashMessagesService.show("Yay! You're in! Welcome to Planter!", { cssClass: 'alert-success', timeout: 3000 });
         console.log('User created successfully');
       },

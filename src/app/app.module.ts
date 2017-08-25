@@ -18,6 +18,7 @@ import { AuthGuardService } from './auth/auth-guard.service';
 import { UserService } from './users/user.service';
 import { WeatherComponent } from './weather/weather.component';
 import { WeatherService } from './weather/weather.service';
+import { UnauthComponent } from './unauth/unauth.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { WeatherService } from './weather/weather.service';
     UserLoginComponent,
     IndivPlantComponent,
     GardenComponent,
-    WeatherComponent
+    WeatherComponent,
+    UnauthComponent
   ],
   imports: [
     BrowserModule,

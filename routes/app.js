@@ -120,7 +120,7 @@ router.post('/user/register', (req, res) => {
     if (err) {
       return res.status(501).json({
         title: 'An error occured',
-        error: err
+        message: err
       });
     }
     res.status(200).json({

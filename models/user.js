@@ -2,9 +2,10 @@ var mongoose = require('mongoose');
 var passportLocalMongoose = require('passport-local-mongoose');
 var bcrypt = require('bcrypt');
 const SALT_FACTOR = 10;
+var uniqueValidator = require('mongoose-unique-validator');
 
 var userSchema = new mongoose.Schema({
-  username: {type: String, required: true},
+  username: {type: String, unique: true, required: true},
   email: {type: String, required: true},
   password: {type: String, required: true},
   location: {type: String, required: true},
@@ -44,5 +45,7 @@ userSchema.methods.comparePassword = function(candidatePassword, callback) {
     callback(null, isMatch);
   });
 };
+
+userSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model("User", userSchema);

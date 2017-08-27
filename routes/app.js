@@ -161,7 +161,7 @@ router.post('/user/login', function(req, res) {
         var payload = {id: user._id};
         var token = jwt.sign(payload, config.secret, {expiresIn: '1h'});
 
-        res.status(200).json({
+          res.status(200).json({
           title: 'User logged in successfully',
           token: token
         });
@@ -181,6 +181,44 @@ router.get('/user/:id/garden', passport.authenticate('jwt', {session: false}), (
     message: 'This is the protected garden route'
   });
 })
+
+router.post('/user/:id/garden/:plant_id', (req, res) => {
+  var user_id = req.params.id;
+  var plant_id = req.params.plant_id;
+
+  User.findById(user_id, (err, user) => {
+    if (err) {
+      return res.status(401).json({
+        title: 'Error: User not found',
+        error: err
+      });
+    };
+
+    Plant.findById(plant_id, (err, plant) => {
+      if (err) {
+        return res.status(401).json({
+          title: 'Error: Plant not found',
+          error: err
+        });
+      }
+
+      user.garden.push(plant);
+      user.save((err, user) => {
+        if (err) {
+          return res.status(401).json({
+            title: 'Error: Could not save changes',
+            error: err
+          });
+        }
+
+        res.status(200).json({
+          title: 'Plant added successfully',
+          object: user.garden
+        });
+      });
+    });
+  });
+});
 
 router.get('/user/:id', (req, res) => {
   var id = req.params.id;

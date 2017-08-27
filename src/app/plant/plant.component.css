@@ -1,1 +1,41 @@
+.btn-light {
+  margin-top: 5px;
+  width: 100%;
+  border: 1px solid rgba(0,0,0,.1)
+}
 
+.plant-image {
+  width: 100%;
+}
+
+.top-row {
+  margin-top: 25px;
+}
+
+.plant-title {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 75px;
+  text-align: center;
+  font-weight: 400;
+}
+
+hr {
+  border-top: 1px solid black;
+  width: 70%;
+}
+
+.plant-information {
+  margin-top: 40px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.5em;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.plant-detail {
+float: right;
+}
+
+.plant-info-line {
+  border-bottom: 1px solid rgba(0,0,0,.1)
+}

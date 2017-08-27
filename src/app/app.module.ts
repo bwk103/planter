@@ -20,6 +20,7 @@ import { WeatherComponent } from './weather/weather.component';
 import { WeatherService } from './weather/weather.service';
 import { UnauthComponent } from './unauth/unauth.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { GardenService } from './garden/garden.service';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
     routing,
     FlashMessagesModule
   ],
-  providers: [AuthGuardService, UserService, WeatherService],
+  providers: [AuthGuardService, UserService, WeatherService, GardenService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

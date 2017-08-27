@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row top-row">
+    <div class="col-md-6">
+      <img class="img-thumbnail plant-image" src="{{plant.image}}" >
+      <button class="btn btn-light" (click)="onAddToGarden()">Add to Garden</button>
+    </div>
+    <div class="col-md-6">
+      <h1 class="plant-title">{{plant.name}}</h1>
+      <hr>
+      <div class="plant-information">
+        <p class="plant-info-line">Type: <span class="plant-detail">{{plant.type}}</span></p>
+        <p class="plant-info-line">Colour: <span class="plant-detail">{{plant.colour}}</span></p>
+        <p class="plant-info-line">Height: <span class="plant-detail">{{plant.height}}cm</span></p>
+        <p class="plant-info-line">Width: <span class="plant-detail">{{plant.width}}cm</span></p>
+      </div>
+    </div>
+  </div>
+</div>

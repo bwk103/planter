@@ -12,7 +12,6 @@ import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 export class UserService {
 
   public token: string;
-  private name: string;
   private jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(private http: Http,
@@ -39,11 +38,8 @@ export class UserService {
   }
 
   setToken(token){
+    localStorage.setItem('token', token);
     this.token = token;
-  }
-
-  setName(name){
-    this.name = name;
   }
 
   isAuthenticated(){
@@ -54,12 +50,8 @@ export class UserService {
     localStorage.removeItem('token');
     this.router.navigate(['/plants'])
     this.token = null;
-    this.name = null;
   }
 
-  userName(){
-    return this.name;
-  }
 
   getUser(id: string){
     return this.http.get('http://localhost:3000/user/' + id)
@@ -69,8 +61,8 @@ export class UserService {
 
   getUserID(){
     var token = localStorage.getItem('token');
-    if (token) {
-      return this.jwtHelper.decodeToken(this.token).user_id;
+    if (token !== null) {
+      return this.jwtHelper.decodeToken(token).id;
     } else {
       return null;
     }

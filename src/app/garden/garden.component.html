@@ -5,7 +5,19 @@
       <hr>
       <!-- <app-weather></app-weather> -->
       <h2>Your Garden:</h2>
-      <app-plant-list></app-plant-list>
+      <div class="col-md-12 plant-list">
+        <div class="row plant-row">
+          <div class="card plant" *ngFor="let plant of plants" style="width: 20rem;">
+            <img class="card-img-top rounded-circle" src="{{plant.image}}">
+            <div class="card-body">
+              <h5 class="card-title">{{plant.name}}</h5>
+              <p class="card-text">This will be some text to describe the plant.</p>
+              <a id="info-button" class="btn btn-info" routerLink="/plants/{{plant._id}}">More Info</a>
+              <a id="garden-button" class="btn btn-success">Add to Garden</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
       <h2>Things To Do:</h2>

@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../users/user.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { User } from '../users/user.model';
+import { Plant } from '../plant/plant.model';
+import { GardenService } from './garden.service';
 
 @Component({
   selector: 'app-garden',
@@ -10,18 +12,19 @@ import { User } from '../users/user.model';
 })
 export class GardenComponent implements OnInit, OnDestroy {
 
+  garden: Plant[];
   user: User;
-  userSubscription: any;
 
   constructor(private userService: UserService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private gardenService: GardenService) { }
 
   ngOnInit() {
-    var id = this.route.snapshot.params['id']
-    this.userSubscription = this.userService.getUser(id)
+    this.gardenService.getGarden()
     .subscribe(
-      (user: User) => {
-        this.user = user
+      (response: any) => {
+        this.garden = response.garden;
+        console.log(this.garden)
       },
       (error: Error) => {
         console.log(error)
@@ -30,7 +33,6 @@ export class GardenComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    this.userSubscription.unsubscribe();
   }
 
 }

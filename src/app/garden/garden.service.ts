@@ -28,4 +28,11 @@ addToGarden(plant: any){
     .catch((error: Response) => Observable.throw(error.json()))
 }
 
+getGarden(){
+  var userID = this.userService.getUserID();
+  return this.http.get('http://localhost:3000/user/' + userID + '/garden/')
+  .map((response: Response) => response.json().object)
+  .catch((error: Response) => Observable.throw(error.json()))
+}
+
 }

@@ -175,11 +175,23 @@ router.post('/user/login', function(req, res) {
   });
 });
 
-router.get('/user/:id/garden', passport.authenticate('jwt', {session: false}), (req, res) => {
-  res.status(200).json({
-    title: 'Garden route',
-    message: 'This is the protected garden route'
-  });
+router.get('/user/:id/garden', (req, res) => {
+  var userID = req.params.id;
+  User.findById(userID)
+    .populate("garden")
+    .exec((err, foundUser) => {
+      if (err) {
+        res.status(401).json({
+          title: 'An error occured',
+          error: err
+        });
+      }
+      res.status(200).json({
+        title: 'Garden route',
+        message: 'This is the protected garden route',
+        object: foundUser
+      });
+    });
 })
 
 router.post('/user/:id/garden/:plant_id', (req, res) => {

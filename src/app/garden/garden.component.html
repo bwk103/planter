@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8">
-      <h1>Welcome back, {{user.username}}</h1>
+      <!-- <h1>Welcome back, {{user.username}}</h1> -->
       <hr>
       <!-- <app-weather></app-weather> -->
       <h2>Your Garden:</h2>
       <div class="col-md-12 plant-list">
         <div class="row plant-row">
-          <div class="card plant" *ngFor="let plant of plants" style="width: 20rem;">
+          <div class="card plant" *ngFor="let plant of garden" style="width: 20rem;">
             <img class="card-img-top rounded-circle" src="{{plant.image}}">
             <div class="card-body">
               <h5 class="card-title">{{plant.name}}</h5>

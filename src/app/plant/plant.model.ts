@@ -6,6 +6,7 @@ export class Plant {
               public height: number,
               public width: number,
               public colour: string,
+              public description: string
               ){
   }
 

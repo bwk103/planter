@@ -6,7 +6,8 @@ var plantSchema = new mongoose.Schema({
   type: String,
   height: Number,
   width: Number,
-  colour: String
+  colour: String,
+  description: String
 });
 
 module.exports = mongoose.model('Plant', plantSchema);

@@ -36,7 +36,8 @@ router.post('/plants', (req, res, next) => {
     type: req.body.type,
     height: req.body.height,
     width: req.body.width,
-    colour: req.body.colour
+    colour: req.body.colour,
+    description: req.body.description
   });
   Plant.create(newPlant, (error, plant) => {
     if (error) {

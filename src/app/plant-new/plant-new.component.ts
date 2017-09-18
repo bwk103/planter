@@ -21,7 +21,8 @@ export class PlantNewComponent implements OnInit {
       type: new FormControl(null),
       height: new FormControl(null),
       width: new FormControl(null),
-      colour: new FormControl(null)
+      colour: new FormControl(null),
+      description: new FormControl(null)
     });
   }
 
@@ -31,7 +32,8 @@ export class PlantNewComponent implements OnInit {
                              this.myForm.value.type,
                              this.myForm.value.height,
                              this.myForm.value.width,
-                             this.myForm.value.colour
+                             this.myForm.value.colour,
+                             this.myForm.value.description
                            )
     this.plantService.addPlant(newPlant)
       .subscribe(
